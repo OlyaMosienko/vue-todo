@@ -1,6 +1,8 @@
 <script setup>
 import { computed, reactive } from 'vue';
-import TodoListItem from './components/TodoListItem.vue';
+import TodoFooter from './components/TodoFooter.vue';
+import TodoList from './components/TodoList.vue';
+import TodoForm from './components/TodoForm.vue';
 
 const todos = reactive([
 	{ id: 1, text: 'Изучить компоненты Vue.js', completed: false },
@@ -27,37 +29,32 @@ const clearAll = () => {
 const uncompletedTodos = computed(() => {
 	return todos.filter((todo) => !todo.completed).length;
 });
+
+const addTodo = (text) => {
+	if (text.trim()) {
+		todos.push({
+			id: Date.now(),
+			text: text.trim(),
+			completed: false,
+		});
+	}
+};
 </script>
 
 <template>
 	<div class="container todo-app">
 		<h1 class="title">Todo List</h1>
 
-		<div class="todo-app__main">
-			<ul class="todo-list">
-				<li
-					class="todo-list__item"
-					:class="{ 'todo-list__item--completed': todo.completed }"
-					v-for="(todo, index) in todos"
-					:key="todo.id"
-				>
-					<TodoListItem v-bind="todo" @complete-todo.once="() => todo.completed = !todo.completed" @remove-todo="removeTodo(index)" />
-				</li>
-			</ul>
-			<div class="todo-list__empty" v-if="!todos.length">
-				<p>Список задач пуст</p>
-			</div>
-		</div>
+		<TodoForm @add-todo="addTodo" />
 
-		<div class="todo-app__footer" v-if="todos.length">
-			<p class="todo-app__footer-text">
-				Осталось {{ uncompletedTodos }} задания(й)
-			</p>
-			<button @click="clearCompleted" class="btn btn--clear">
-				Удалить завершенные
-			</button>
-			<button @click="clearAll" class="btn btn--clear">Очистить список</button>
-		</div>
+		<TodoList :todos="todos" @remove-todo="removeTodo" />
+
+		<TodoFooter
+			v-if="todos.length"
+			:remaining="uncompletedTodos"
+			@clear-completed="clearCompleted"
+			@clear-all="clearAll"
+		/>
 	</div>
 </template>
 
