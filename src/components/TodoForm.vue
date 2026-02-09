@@ -6,7 +6,7 @@ const newTodoText = ref('');
 const emit = defineEmits(['add-todo']);
 
 const onSubmit = () => {
-	if (!newTodoText.value.trim()) {
+	if (!newTodoText.value) {
 		return;
 	}
 
@@ -22,7 +22,7 @@ const onSubmit = () => {
 				class="form-control"
 				type="text"
 				placeholder="Новая задача"
-				v-model="newTodoText"
+				v-model.trim="newTodoText"
 			/>
 			<button class="btn btn--add-todo" type="submit">Добавить</button>
 		</div>

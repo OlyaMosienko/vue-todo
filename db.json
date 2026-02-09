@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "id": "1",
+      "text": "Изучить компоненты Vue.js",
+      "completed": true
+    },
+    {
+      "id": "2",
+      "text": "Создать TodoList приложение",
+      "completed": true
+    },
+    {
+      "id": "3",
+      "text": "Похвалить себя за отличную работу",
+      "completed": false
+    },
+    {
+      "id": "770643786775",
+      "text": "Доделать домашку по блоку API",
+      "completed": false
+    }
+  ]
+}

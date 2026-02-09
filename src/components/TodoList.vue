@@ -13,11 +13,11 @@ defineProps({
 	<div class="todo-app__main">
 		<ul class="todo-list">
 			<TodoListItem
-				v-for="(todo, index) in todos"
+				v-for="todo in todos"
 				:key="todo.id"
 				v-bind="todo"
-				@remove="() => $emit('remove-todo', index)"
-				@complete.once="() => (todo.completed = !todo.completed)"
+				@remove="() => $emit('remove-todo', todo.id)"
+				@complete.once="() => $emit('complete-todo', todo)"
 			/>
 		</ul>
 		<div class="todo-list__empty" v-if="!todos.length">

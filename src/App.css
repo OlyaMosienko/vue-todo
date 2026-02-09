@@ -47,3 +47,7 @@ body {
 .btn--add-todo {
 	border-radius: 0 5px 5px 0;
 }
+
+.error {
+	color: #e3342f;
+}
